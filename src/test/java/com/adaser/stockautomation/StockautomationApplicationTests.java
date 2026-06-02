@@ -1,0 +1,13 @@
+package com.adaser.stockautomation;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class StockautomationApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
