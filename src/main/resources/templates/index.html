@@ -30,14 +30,18 @@
 <div class="container">
 
     <div class="page-header">
-        <div>
-            <h1>Adaser Yapı Kimyasalları</h1>
-            <p>Stok takip, depo hareketleri ve kritik stok yönetim paneli.</p>
-        </div>
+        <h1>Adaser Yapı Kimyasalları</h1>
+
+        <p sec:authorize="hasRole('ADMIN')">
+            Admin paneline hoş geldiniz. Kategori, tedarikçi, ürün ve stok süreçlerini yönetebilirsiniz.
+        </p>
+
+        <p sec:authorize="hasRole('STAFF')">
+            Personel paneline hoş geldiniz. Ürünleri görüntüleyebilir ve stok giriş/çıkış işlemleri yapabilirsiniz.
+        </p>
     </div>
 
     <div class="stats-grid">
-
         <div class="stat-card">
             <span>Toplam Ürün</span>
             <strong th:text="${totalProductCount}">0</strong>
@@ -50,43 +54,28 @@
 
         <div class="stat-card">
             <span>Stok Değeri</span>
-            <strong>
-                <span th:text="${totalStockValue}">0</span> TL
-            </strong>
+            <strong><span th:text="${totalStockValue}">0</span> TL</strong>
         </div>
 
         <div class="stat-card danger-stat">
             <span>Kritik Stok</span>
             <strong th:text="${criticalProductCount}">0</strong>
         </div>
-
     </div>
 
     <div class="dashboard-grid">
 
         <div class="card">
-            <h3>Hızlı İşlemler</h3>
-
+            <h3>Personel İşlemleri</h3>
             <a class="btn" href="/staff/products">Ürünleri Görüntüle</a>
             <a class="btn btn-success" href="/staff/movements">Stok Giriş / Çıkış</a>
             <a class="btn btn-warning" href="/staff/products/critical">Kritik Stoklar</a>
-
-            <a sec:authorize="hasRole('ADMIN')" class="btn" href="/admin/categories">Kategori Yönetimi</a>
-            <a sec:authorize="hasRole('ADMIN')" class="btn" href="/admin/suppliers">Tedarikçi Yönetimi</a>
         </div>
 
-        <div class="card">
-            <h3>Sistem Bilgisi</h3>
-
-            <p>
-                Bu otomasyon, yapı kimyasalları üreten Adaser fabrikasının
-                stok süreçlerini dijital ortamda takip etmek için geliştirilmiştir.
-            </p>
-
-            <p>
-                Admin kullanıcılar kategori ve tedarikçi yönetebilir.
-                Personel kullanıcılar ürünleri görüntüleyebilir ve stok hareketi yapabilir.
-            </p>
+        <div class="card" sec:authorize="hasRole('ADMIN')">
+            <h3>Admin İşlemleri</h3>
+            <a class="btn" href="/admin/categories">Kategori Yönetimi</a>
+            <a class="btn" href="/admin/suppliers">Tedarikçi Yönetimi</a>
         </div>
 
     </div>

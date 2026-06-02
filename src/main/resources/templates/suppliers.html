@@ -2,41 +2,72 @@
 <html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Tedarikçiler</title>
+    <title>Tedarikçiler | Adaser Stok Takip</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>Tedarikçi Yönetimi</h2>
 
-<form th:action="@{/admin/suppliers}" th:object="${supplierDto}" method="post">
-    <input type="text" th:field="*{companyName}" placeholder="Firma adı">
-    <span th:errors="*{companyName}"></span>
-    <br>
+<div class="navbar">
+    <strong>Adaser Stok Takip</strong>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/staff/products">Ürünler</a>
+        <a href="/admin/categories">Kategoriler</a>
+        <a href="/logout">Çıkış</a>
+    </div>
+</div>
 
-    <input type="text" th:field="*{phone}" placeholder="Telefon">
-    <span th:errors="*{phone}"></span>
-    <br>
+<div class="container">
+    <div class="card">
+        <h2 class="page-title">Tedarikçi Yönetimi</h2>
+        <p class="page-description">Ürün tedarikçilerinin firma, telefon ve adres bilgilerini buradan yönetebilirsiniz.</p>
 
-    <input type="text" th:field="*{address}" placeholder="Adres">
-    <span th:errors="*{address}"></span>
-    <br>
+        <form th:action="@{/admin/suppliers}" th:object="${supplierDto}" method="post">
+            <div class="form-grid">
+                <div>
+                    <label>Firma Adı</label>
+                    <input type="text" th:field="*{companyName}" placeholder="Firma adı">
+                    <span class="error" th:errors="*{companyName}"></span>
+                </div>
 
-    <button type="submit">Ekle</button>
-</form>
+                <div>
+                    <label>Telefon</label>
+                    <input type="text" th:field="*{phone}" placeholder="Telefon">
+                    <span class="error" th:errors="*{phone}"></span>
+                </div>
 
-<table border="1">
-    <tr>
-        <th>Firma</th>
-        <th>Telefon</th>
-        <th>Adres</th>
-    </tr>
-    <tr th:each="supplier : ${suppliers}">
-        <td th:text="${supplier.companyName}"></td>
-        <td th:text="${supplier.phone}"></td>
-        <td th:text="${supplier.address}"></td>
-    </tr>
-</table>
+                <div>
+                    <label>Adres</label>
+                    <input type="text" th:field="*{address}" placeholder="Adres">
+                    <span class="error" th:errors="*{address}"></span>
+                </div>
+            </div>
 
-<a href="/">Ana Sayfa</a>
+            <button class="btn btn-success" type="submit">Tedarikçi Ekle</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Tedarikçi Listesi</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Firma</th>
+                <th>Telefon</th>
+                <th>Adres</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="supplier : ${suppliers}">
+                <td th:text="${supplier.companyName}"></td>
+                <td th:text="${supplier.phone}"></td>
+                <td th:text="${supplier.address}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>

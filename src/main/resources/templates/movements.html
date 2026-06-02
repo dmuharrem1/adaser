@@ -2,65 +2,94 @@
 <html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Stok Hareketleri</title>
+    <title>Stok Hareketleri | Adaser Stok Takip</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>Stok Giriş / Çıkış</h2>
 
-<form th:action="@{/staff/movements}" th:object="${movementDto}" method="post">
+<div class="navbar">
+    <strong>Adaser Stok Takip</strong>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/staff/products">Ürünler</a>
+        <a href="/staff/products/critical">Kritik Stoklar</a>
+        <a href="/logout">Çıkış</a>
+    </div>
+</div>
 
-    <label>Ürün</label>
-    <select th:field="*{productId}">
-        <option value="">Seçiniz</option>
-        <option th:each="product : ${products}"
-                th:value="${product.id}"
-                th:text="${product.name}">
-        </option>
-    </select>
-    <span th:errors="*{productId}"></span>
-    <br>
+<div class="container">
+    <div class="card">
+        <h2 class="page-title">Stok Giriş / Çıkış</h2>
+        <p class="page-description">Ürünlerin depoya giriş ve depodan çıkış hareketlerini buradan kaydedebilirsiniz.</p>
 
-    <label>İşlem Türü</label>
-    <select th:field="*{movementType}">
-        <option value="">Seçiniz</option>
-        <option value="IN">Stok Giriş</option>
-        <option value="OUT">Stok Çıkış</option>
-    </select>
-    <span th:errors="*{movementType}"></span>
-    <br>
+        <form th:action="@{/staff/movements}" th:object="${movementDto}" method="post">
+            <div class="form-grid">
+                <div>
+                    <label>Ürün</label>
+                    <select th:field="*{productId}">
+                        <option value="">Seçiniz</option>
+                        <option th:each="product : ${products}"
+                                th:value="${product.id}"
+                                th:text="${product.name}">
+                        </option>
+                    </select>
+                    <span class="error" th:errors="*{productId}"></span>
+                </div>
 
-    <label>Miktar</label>
-    <input type="number" th:field="*{quantity}">
-    <span th:errors="*{quantity}"></span>
-    <br>
+                <div>
+                    <label>İşlem Türü</label>
+                    <select th:field="*{movementType}">
+                        <option value="">Seçiniz</option>
+                        <option value="IN">Stok Giriş</option>
+                        <option value="OUT">Stok Çıkış</option>
+                    </select>
+                    <span class="error" th:errors="*{movementType}"></span>
+                </div>
 
-    <label>Açıklama</label>
-    <input type="text" th:field="*{description}">
-    <br>
+                <div>
+                    <label>Miktar</label>
+                    <input type="number" th:field="*{quantity}">
+                    <span class="error" th:errors="*{quantity}"></span>
+                </div>
 
-    <button type="submit">Kaydet</button>
-</form>
+                <div class="full-width">
+                    <label>Açıklama</label>
+                    <input type="text" th:field="*{description}" placeholder="İşlem açıklaması">
+                </div>
+            </div>
 
-<hr>
+            <button class="btn btn-success" type="submit">Stok Hareketi Kaydet</button>
+        </form>
+    </div>
 
-<table border="1">
-    <tr>
-        <th>Ürün</th>
-        <th>İşlem</th>
-        <th>Miktar</th>
-        <th>Tarih</th>
-        <th>Açıklama</th>
-    </tr>
-    <tr th:each="movement : ${movements}">
-        <td th:text="${movement.product.name}"></td>
-        <td th:text="${movement.movementType}"></td>
-        <td th:text="${movement.quantity}"></td>
-        <td th:text="${movement.movementDate}"></td>
-        <td th:text="${movement.description}"></td>
-    </tr>
-</table>
+    <div class="card">
+        <h3>Stok Hareket Geçmişi</h3>
 
-<a href="/">Ana Sayfa</a>
+        <table>
+            <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>İşlem</th>
+                <th>Miktar</th>
+                <th>Tarih</th>
+                <th>Açıklama</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="movement : ${movements}">
+                <td th:text="${movement.product.name}"></td>
+                <td>
+                    <span th:if="${movement.movementType == 'IN'}" class="badge badge-in">Giriş</span>
+                    <span th:if="${movement.movementType == 'OUT'}" class="badge badge-out">Çıkış</span>
+                </td>
+                <td th:text="${movement.quantity}"></td>
+                <td th:text="${movement.movementDate}"></td>
+                <td th:text="${movement.description}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>

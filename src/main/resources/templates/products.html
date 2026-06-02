@@ -2,56 +2,81 @@
 <html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ürünler</title>
+    <title>Ürünler | Adaser Stok Takip</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>Ürün Listesi</h2>
 
-<form action="/staff/products/search" method="get">
-    <input type="text" name="keyword" placeholder="Ürün ara">
-    <button type="submit">Ara</button>
-</form>
+<div class="navbar">
+    <strong>Adaser Stok Takip</strong>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/staff/movements">Stok Hareketleri</a>
+        <a href="/staff/products/critical">Kritik Stoklar</a>
+        <a href="/logout">Çıkış</a>
+    </div>
+</div>
 
-<br>
+<div class="container">
+    <div class="card">
+        <h2 class="page-title">Ürün Yönetimi</h2>
+        <p class="page-description">Adaser fabrikasına ait ürünleri görüntüleyebilir, arayabilir, güncelleyebilir ve silebilirsiniz.</p>
 
-<a href="/staff/products/new">Yeni Ürün Ekle</a>
-<a href="/">Ana Sayfa</a>
+        <form class="search-bar" action="/staff/products/search" method="get">
+            <input type="text" name="keyword" placeholder="Ürün adına göre ara">
+            <button class="btn" type="submit">Ara</button>
+            <a class="btn btn-success" href="/staff/products/new">Yeni Ürün Ekle</a>
+        </form>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Kod</th>
-        <th>Ürün Adı</th>
-        <th>Birim</th>
-        <th>Miktar</th>
-        <th>Kritik Seviye</th>
-        <th>Alış</th>
-        <th>Satış</th>
-        <th>Kategori</th>
-        <th>Tedarikçi</th>
-        <th>İşlem</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.productCode}"></td>
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.unit}"></td>
-        <td th:text="${product.quantity}"></td>
-        <td th:text="${product.criticalStockLevel}"></td>
-        <td th:text="${product.purchasePrice}"></td>
-        <td th:text="${product.salePrice}"></td>
-        <td th:text="${product.category.name}"></td>
-        <td th:text="${product.supplier.companyName}"></td>
-        <td>
-            <form th:action="@{/staff/products/delete/{id}(id=${product.id})}" method="post">
-                <a class="btn btn-warning" th:href="@{/staff/products/edit/{id}(id=${product.id})}">Güncelle</a>
-                <button type="submit">Sil</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <table>
+            <thead>
+            <tr>
+                <th>Kod</th>
+                <th>Ürün Adı</th>
+                <th>Birim</th>
+                <th>Miktar</th>
+                <th>Kritik Seviye</th>
+                <th>Satış Fiyatı</th>
+                <th>Kategori</th>
+                <th>Tedarikçi</th>
+                <th>İşlem</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.productCode}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.unit}"></td>
+                <td>
+                    <span th:text="${product.quantity}"></span>
+                    <span class="badge badge-critical"
+                          th:if="${product.quantity <= product.criticalStockLevel}">
+                        Kritik
+                    </span>
+                </td>
+                <td th:text="${product.criticalStockLevel}"></td>
+                <td><span th:text="${product.salePrice}"></span> TL</td>
+                <td th:text="${product.category.name}"></td>
+                <td th:text="${product.supplier.companyName}"></td>
+                <td>
+                    <div class="table-actions">
+                        <a class="btn btn-warning"
+                           th:href="@{/staff/products/edit/{id}(id=${product.id})}">
+                            Güncelle
+                        </a>
+
+                        <form th:action="@{/staff/products/delete/{id}(id=${product.id})}"
+                              method="post"
+                              onsubmit="return confirm('Bu ürünü silmek istediğinize emin misiniz?');">
+                            <button class="btn btn-danger" type="submit">Sil</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>

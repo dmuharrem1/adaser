@@ -2,29 +2,53 @@
 <html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kategoriler</title>
+    <title>Kategoriler | Adaser Stok Takip</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>Kategori Yönetimi</h2>
 
-<form th:action="@{/admin/categories}" th:object="${categoryDto}" method="post">
-    <input type="text" th:field="*{name}" placeholder="Kategori adı">
-    <span th:errors="*{name}"></span>
-    <button type="submit">Ekle</button>
-</form>
+<div class="navbar">
+    <strong>Adaser Stok Takip</strong>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/staff/products">Ürünler</a>
+        <a href="/admin/suppliers">Tedarikçiler</a>
+        <a href="/logout">Çıkış</a>
+    </div>
+</div>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Kategori Adı</th>
-    </tr>
-    <tr th:each="category : ${categories}">
-        <td th:text="${category.id}"></td>
-        <td th:text="${category.name}"></td>
-    </tr>
-</table>
+<div class="container">
+    <div class="card">
+        <h2 class="page-title">Kategori Yönetimi</h2>
+        <p class="page-description">Ürünlerin bağlı olduğu yapı kimyasalı kategorilerini buradan yönetebilirsiniz.</p>
 
-<a href="/">Ana Sayfa</a>
+        <form th:action="@{/admin/categories}" th:object="${categoryDto}" method="post">
+            <label>Kategori Adı</label>
+            <input type="text" th:field="*{name}" placeholder="Örn: Yapıştırıcılar">
+            <span class="error" th:errors="*{name}"></span>
+            <button class="btn btn-success" type="submit">Kategori Ekle</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Kategori Listesi</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kategori Adı</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
