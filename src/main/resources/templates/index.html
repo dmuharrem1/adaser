@@ -5,101 +5,89 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Adaser Stok Takip</title>
-
+    <title>Dashboard | Adaser Stok Takip</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
 <div class="navbar">
-
     <strong>Adaser Stok Takip</strong>
 
     <div>
-
+        <a href="/">Dashboard</a>
         <a href="/staff/products">Ürünler</a>
-
         <a href="/staff/movements">Stok Hareketleri</a>
-
         <a href="/staff/products/critical">Kritik Stoklar</a>
 
-        <a sec:authorize="hasRole('ADMIN')"
-           href="/admin/categories">
-            Kategoriler
-        </a>
-
-        <a sec:authorize="hasRole('ADMIN')"
-           href="/admin/suppliers">
-            Tedarikçiler
-        </a>
+        <a sec:authorize="hasRole('ADMIN')" href="/admin/categories">Kategoriler</a>
+        <a sec:authorize="hasRole('ADMIN')" href="/admin/suppliers">Tedarikçiler</a>
 
         <a href="/logout">Çıkış</a>
-
     </div>
-
 </div>
 
 <div class="container">
 
-    <div class="card">
+    <div class="page-header">
+        <div>
+            <h1>Adaser Yapı Kimyasalları</h1>
+            <p>Stok takip, depo hareketleri ve kritik stok yönetim paneli.</p>
+        </div>
+    </div>
 
-        <h1>Adaser Yapı Kimyasalları</h1>
+    <div class="stats-grid">
 
-        <h2>Stok Takip Otomasyonu</h2>
+        <div class="stat-card">
+            <span>Toplam Ürün</span>
+            <strong th:text="${totalProductCount}">0</strong>
+        </div>
 
-        <p>
-            Bu sistem yapı kimyasalları üreten Adaser fabrikasının
-            ürün, kategori, tedarikçi ve stok hareketlerini takip
-            etmek için geliştirilmiştir.
-        </p>
+        <div class="stat-card">
+            <span>Toplam Stok</span>
+            <strong th:text="${totalStockQuantity}">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Stok Değeri</span>
+            <strong>
+                <span th:text="${totalStockValue}">0</span> TL
+            </strong>
+        </div>
+
+        <div class="stat-card danger-stat">
+            <span>Kritik Stok</span>
+            <strong th:text="${criticalProductCount}">0</strong>
+        </div>
 
     </div>
 
-    <div class="card">
+    <div class="dashboard-grid">
 
-        <h3>Stok Özeti</h3>
+        <div class="card">
+            <h3>Hızlı İşlemler</h3>
 
-        <p>
-            Toplam Ürün Sayısı:
-            <strong th:text="${totalProductCount}"></strong>
-        </p>
+            <a class="btn" href="/staff/products">Ürünleri Görüntüle</a>
+            <a class="btn btn-success" href="/staff/movements">Stok Giriş / Çıkış</a>
+            <a class="btn btn-warning" href="/staff/products/critical">Kritik Stoklar</a>
 
-        <p>
-            Toplam Stok Miktarı:
-            <strong th:text="${totalStockQuantity}"></strong>
-        </p>
+            <a sec:authorize="hasRole('ADMIN')" class="btn" href="/admin/categories">Kategori Yönetimi</a>
+            <a sec:authorize="hasRole('ADMIN')" class="btn" href="/admin/suppliers">Tedarikçi Yönetimi</a>
+        </div>
 
-        <p>
-            Toplam Stok Değeri:
-            <strong th:text="${totalStockValue}"></strong> TL
-        </p>
+        <div class="card">
+            <h3>Sistem Bilgisi</h3>
 
-        <p>
-            Kritik Stoktaki Ürün Sayısı:
-            <strong th:text="${criticalProductCount}"></strong>
-        </p>
+            <p>
+                Bu otomasyon, yapı kimyasalları üreten Adaser fabrikasının
+                stok süreçlerini dijital ortamda takip etmek için geliştirilmiştir.
+            </p>
 
-    </div>
-
-    <div class="card">
-
-        <h3>Panel İşlemleri</h3>
-
-        <a class="btn"
-           href="/staff/products">
-            Ürünleri Görüntüle
-        </a>
-
-        <a class="btn btn-success"
-           href="/staff/movements">
-            Stok Giriş / Çıkış
-        </a>
-
-        <a class="btn btn-warning"
-           href="/staff/products/critical">
-            Kritik Stoklar
-        </a>
+            <p>
+                Admin kullanıcılar kategori ve tedarikçi yönetebilir.
+                Personel kullanıcılar ürünleri görüntüleyebilir ve stok hareketi yapabilir.
+            </p>
+        </div>
 
     </div>
 
