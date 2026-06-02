@@ -35,4 +35,18 @@ public class CategoryService {
         Category category = getCategoryById(id);
         categoryRepository.delete(category);
     }
+    public CategoryDto getCategoryDtoById(Long id) {
+        Category category = getCategoryById(id);
+
+        return CategoryDto.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .build();
+    }
+
+    public Category updateCategory(Long id, CategoryDto categoryDto) {
+        Category category = getCategoryById(id);
+        category.setName(categoryDto.getName());
+        return categoryRepository.save(category);
+    }
 }

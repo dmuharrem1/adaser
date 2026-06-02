@@ -40,4 +40,24 @@ public class SupplierController {
         supplierService.deleteSupplier(id);
         return "redirect:/admin/suppliers";
     }
+    @GetMapping("/edit/{id}")
+    public String showEditSupplierForm(@PathVariable Long id, Model model) {
+        model.addAttribute("supplierDto", supplierService.getSupplierDtoById(id));
+        model.addAttribute("suppliers", supplierService.getAllSuppliers());
+        return "suppliers";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateSupplier(@PathVariable Long id,
+                                 @Valid @ModelAttribute SupplierDto supplierDto,
+                                 BindingResult bindingResult,
+                                 Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("suppliers", supplierService.getAllSuppliers());
+            return "suppliers";
+        }
+
+        supplierService.updateSupplier(id, supplierDto);
+        return "redirect:/admin/suppliers";
+    }
 }

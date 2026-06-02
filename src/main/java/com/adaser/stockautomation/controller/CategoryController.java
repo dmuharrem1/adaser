@@ -40,4 +40,24 @@ public class CategoryController {
         categoryService.deleteCategory(id);
         return "redirect:/admin/categories";
     }
+    @GetMapping("/edit/{id}")
+    public String showEditCategoryForm(@PathVariable Long id, Model model) {
+        model.addAttribute("categoryDto", categoryService.getCategoryDtoById(id));
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "categories";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateCategory(@PathVariable Long id,
+                                 @Valid @ModelAttribute CategoryDto categoryDto,
+                                 BindingResult bindingResult,
+                                 Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.getAllCategories());
+            return "categories";
+        }
+
+        categoryService.updateCategory(id, categoryDto);
+        return "redirect:/admin/categories";
+    }
 }

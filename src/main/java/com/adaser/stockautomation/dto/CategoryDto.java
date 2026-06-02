@@ -12,4 +12,5 @@ public class CategoryDto {
 
     @NotBlank(message = "Category name cannot be empty")
     private String name;
+    private Long id;
 }

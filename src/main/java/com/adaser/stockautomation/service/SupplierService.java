@@ -37,4 +37,24 @@ public class SupplierService {
         Supplier supplier = getSupplierById(id);
         supplierRepository.delete(supplier);
     }
+    public SupplierDto getSupplierDtoById(Long id) {
+        Supplier supplier = getSupplierById(id);
+
+        return SupplierDto.builder()
+                .id(supplier.getId())
+                .companyName(supplier.getCompanyName())
+                .phone(supplier.getPhone())
+                .address(supplier.getAddress())
+                .build();
+    }
+
+    public Supplier updateSupplier(Long id, SupplierDto supplierDto) {
+        Supplier supplier = getSupplierById(id);
+
+        supplier.setCompanyName(supplierDto.getCompanyName());
+        supplier.setPhone(supplierDto.getPhone());
+        supplier.setAddress(supplierDto.getAddress());
+
+        return supplierRepository.save(supplier);
+    }
 }

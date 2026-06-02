@@ -18,4 +18,5 @@ public class SupplierDto {
 
     @NotBlank(message = "Address cannot be empty")
     private String address;
+    private Long id;
 }
