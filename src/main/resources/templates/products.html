@@ -28,7 +28,12 @@
         <a href="/staff/products" class="flex items-center gap-2 px-3 py-2 text-white border-b-2 border-blue-400">Ürünler</a>
         <a href="/staff/movements" class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white transition">Stok Hareketleri</a>
         <a href="/staff/products/critical" class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white transition">Kritik Stoklar</a>
-        <a href="/logout" class="ml-4 border-l border-slate-700 pl-4 text-slate-400 hover:text-red-400 transition">Çıkış</a>
+        <form th:action="@{/logout}" method="post" class="ml-4 border-l border-slate-700 pl-4">
+            <button type="submit"
+                    class="text-slate-400 hover:text-red-400 transition bg-transparent border-none cursor-pointer">
+                Çıkış
+            </button>
+        </form>
     </div>
 
 </nav>
@@ -100,6 +105,7 @@
             <table class="w-full text-sm">
                 <thead class="bg-slate-50 text-slate-700">
                 <tr>
+                    <th class="px-5 py-3 text-left font-semibold">Görsel</th>
                     <th class="px-5 py-3 text-left font-semibold">Kod</th>
                     <th class="px-5 py-3 text-left font-semibold">Ürün Adı</th>
                     <th class="px-5 py-3 text-left font-semibold">Birim</th>
@@ -114,7 +120,11 @@
 
                 <tbody class="divide-y divide-slate-100">
                 <tr th:each="product : ${products}" class="hover:bg-slate-50 transition">
-
+                    <td class="px-5 py-4">
+                        <img th:src="@{'/css/images/' + ${product.imageName}}"
+                             alt="Ürün Görseli"
+                             class="w-16 h-16 object-contain rounded-xl bg-slate-50 border border-slate-200 p-1">
+                    </td>
                     <td class="px-5 py-4 font-medium text-slate-700" th:text="${product.productCode}"></td>
 
                     <td class="px-5 py-4 text-slate-900 font-semibold" th:text="${product.name}"></td>

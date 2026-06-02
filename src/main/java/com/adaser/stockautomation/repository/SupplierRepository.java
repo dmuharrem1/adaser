@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 
-    List<Supplier> findByCompanyNameContainingIgnoreCase(String companyName);
 }

@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ProductDto {
+
     private Long id;
 
     @NotBlank(message = "Product code cannot be empty")
@@ -36,9 +37,12 @@ public class ProductDto {
     @DecimalMin(value = "0.0", message = "Sale price cannot be negative")
     private Double salePrice;
 
+    private String imageName;
+
     @NotNull(message = "Category must be selected")
     private Long categoryId;
 
     @NotNull(message = "Supplier must be selected")
     private Long supplierId;
+
 }

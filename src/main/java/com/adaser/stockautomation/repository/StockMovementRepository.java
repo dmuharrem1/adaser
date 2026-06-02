@@ -9,5 +9,4 @@ public interface StockMovementRepository extends JpaRepository<StockMovement, Lo
 
     List<StockMovement> findByProductId(Long productId);
 
-    List<StockMovement> findByMovementType(String movementType);
 }

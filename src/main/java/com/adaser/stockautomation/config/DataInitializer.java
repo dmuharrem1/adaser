@@ -40,7 +40,7 @@ public class DataInitializer implements CommandLineRunner {
 
             productRepository.save(Product.builder()
                     .productCode("ADS-001")
-                    .name("Seramik Yapıştırıcı")
+                    .name("Fayans Seramik Yapıştırıcı Harcı")
                     .unit("kg")
                     .quantity(250)
                     .criticalStockLevel(50)
@@ -48,23 +48,25 @@ public class DataInitializer implements CommandLineRunner {
                     .salePrice(180.0)
                     .category(adhesive)
                     .supplier(supplierOne)
+                    .imageName("fayans-seramik-yapistirici.jpg")
                     .build());
 
             productRepository.save(Product.builder()
                     .productCode("ADS-002")
-                    .name("Derz Dolgu")
+                    .name("Isı Yalıtım Levha Yapıştırıcısı")
                     .unit("kg")
                     .quantity(180)
                     .criticalStockLevel(40)
                     .purchasePrice(90.0)
                     .salePrice(140.0)
-                    .category(mortar)
+                    .category(adhesive)
                     .supplier(supplierOne)
+                    .imageName("isi-yalitim-levha-yapistiricisi.jpg")
                     .build());
 
             productRepository.save(Product.builder()
                     .productCode("ADS-003")
-                    .name("Kristalize Su Yalıtımı")
+                    .name("Isı Yalıtım Levha Sıvası")
                     .unit("kg")
                     .quantity(35)
                     .criticalStockLevel(50)
@@ -72,19 +74,21 @@ public class DataInitializer implements CommandLineRunner {
                     .salePrice(320.0)
                     .category(waterproofing)
                     .supplier(supplierTwo)
+                    .imageName("isi-yalitim-levha-sivasi.jpg")
                     .build());
 
             productRepository.save(Product.builder()
                     .productCode("ADS-004")
-                    .name("Brüt Beton Astarı")
-                    .unit("lt")
+                    .name("Derz Dolgusu")
+                    .unit("kg")
                     .quantity(90)
                     .criticalStockLevel(25)
                     .purchasePrice(150.0)
                     .salePrice(230.0)
-                    .category(primer)
+                    .category(mortar)
                     .supplier(supplierTwo)
+                    .imageName("derz-dolgusu.jpg")
                     .build());
-        }
+    }
     }
 }

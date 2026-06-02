@@ -40,6 +40,7 @@ public class ProductService {
                 .criticalStockLevel(productDto.getCriticalStockLevel())
                 .purchasePrice(productDto.getPurchasePrice())
                 .salePrice(productDto.getSalePrice())
+                .imageName(productDto.getImageName())
                 .category(category)
                 .supplier(supplier)
                 .build();
@@ -67,6 +68,7 @@ public class ProductService {
         Product product = getProductById(id);
         productRepository.delete(product);
     }
+
     public long getTotalProductCount() {
         return productRepository.count();
     }
@@ -84,6 +86,7 @@ public class ProductService {
                 .mapToDouble(product -> product.getQuantity() * product.getSalePrice())
                 .sum();
     }
+
     public ProductDto getProductDtoById(Long id) {
         Product product = getProductById(id);
 
@@ -96,6 +99,7 @@ public class ProductService {
                 .criticalStockLevel(product.getCriticalStockLevel())
                 .purchasePrice(product.getPurchasePrice())
                 .salePrice(product.getSalePrice())
+                .imageName(product.getImageName())
                 .categoryId(product.getCategory().getId())
                 .supplierId(product.getSupplier().getId())
                 .build();
@@ -117,14 +121,17 @@ public class ProductService {
         product.setCriticalStockLevel(productDto.getCriticalStockLevel());
         product.setPurchasePrice(productDto.getPurchasePrice());
         product.setSalePrice(productDto.getSalePrice());
+        product.setImageName(productDto.getImageName());
         product.setCategory(category);
         product.setSupplier(supplier);
 
         return productRepository.save(product);
     }
+
     public List<Product> getProductsByCategory(String categoryName) {
         return productRepository.findByCategory_Name(categoryName);
     }
+
     public List<String> getCategoryChartLabels() {
         return productRepository.findAll()
                 .stream()

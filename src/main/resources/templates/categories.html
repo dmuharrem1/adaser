@@ -36,7 +36,18 @@
         <a href="/staff/products/critical" class="px-3 py-2 text-slate-400 hover:text-white transition">Kritik Stoklar</a>
         <a href="/admin/categories" class="px-3 py-2 text-white border-b-2 border-blue-400">Kategoriler</a>
         <a href="/admin/suppliers" class="px-3 py-2 text-slate-400 hover:text-white transition">Tedarikçiler</a>
-        <a href="/logout" class="ml-4 border-l border-slate-700 pl-4 text-slate-400 hover:text-red-400 transition">Çıkış</a>
+        <form th:action="@{/logout}"
+              method="post"
+              class="ml-4 border-l border-slate-700 pl-4">
+
+            <button type="submit"
+                    class="text-slate-400 hover:text-red-400 transition bg-transparent border-none cursor-pointer">
+
+                Çıkış
+
+            </button>
+
+        </form>
     </div>
 </nav>
 

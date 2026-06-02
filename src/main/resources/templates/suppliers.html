@@ -9,316 +9,145 @@
 <body class="bg-slate-100 min-h-screen">
 
 <nav class="bg-slate-900 border-b border-slate-800 px-8 py-4 flex items-center justify-between shadow-sm">
-
     <a href="/" class="flex items-center gap-3">
-
-        <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-white">
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-6 h-6"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor"
-                 stroke-width="1.8">
-
-                <path stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M21 8.25 12 3 3 8.25m18 0-9 5.25m9-5.25v7.5L12 21m0-7.5L3 8.25m9 5.25V21M3 8.25v7.5L12 21"/>
-
-            </svg>
-
-        </div>
-
         <div class="text-lg tracking-wide">
-
             <span class="text-white font-bold">Adaser</span>
-
             <span class="text-slate-300 font-light">Stok Takip</span>
-
         </div>
-
     </a>
 
     <div class="flex items-center gap-1 text-sm">
-
         <a href="/" class="px-3 py-2 text-slate-400 hover:text-white transition">Dashboard</a>
-
         <a href="/staff/products" class="px-3 py-2 text-slate-400 hover:text-white transition">Ürünler</a>
-
         <a href="/staff/movements" class="px-3 py-2 text-slate-400 hover:text-white transition">Stok Hareketleri</a>
-
         <a href="/staff/products/critical" class="px-3 py-2 text-slate-400 hover:text-white transition">Kritik Stoklar</a>
-
         <a href="/admin/categories" class="px-3 py-2 text-slate-400 hover:text-white transition">Kategoriler</a>
-
         <a href="/admin/suppliers" class="px-3 py-2 text-white border-b-2 border-blue-400">Tedarikçiler</a>
 
-        <a href="/logout"
-           class="ml-4 border-l border-slate-700 pl-4 text-slate-400 hover:text-red-400 transition">
-
-            Çıkış
-
-        </a>
-
+        <form th:action="@{/logout}" method="post" class="ml-4 border-l border-slate-700 pl-4">
+            <button type="submit" class="text-slate-400 hover:text-red-400 transition bg-transparent border-none cursor-pointer">
+                Çıkış
+            </button>
+        </form>
     </div>
-
 </nav>
 
 <main class="max-w-7xl mx-auto px-6 py-8">
 
     <div class="mb-6">
-
-        <h1 class="text-2xl font-bold text-slate-900">
-
-            Tedarikçi Yönetimi
-
-        </h1>
-
-        <p class="text-slate-500 mt-1">
-
-            Ürün tedarikçilerini ve iletişim bilgilerini yönetin.
-
-        </p>
-
+        <h1 class="text-2xl font-bold text-slate-900">Tedarikçi Yönetimi</h1>
+        <p class="text-slate-500 mt-1">Ürün tedarikçilerini ve iletişim bilgilerini yönetin.</p>
     </div>
 
-
     <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-6">
-
         <h2 class="text-lg font-semibold text-slate-900 mb-1"
             th:text="${supplierDto.id == null} ? 'Tedarikçi Ekleme Formu' : 'Tedarikçi Güncelleme Formu'">
-
             Tedarikçi Ekleme Formu
-
         </h2>
 
-        <p class="text-sm text-slate-500 mb-5">
-
-            Yeni tedarikçi bilgilerini giriniz.
-
-        </p>
+        <p class="text-sm text-slate-500 mb-5">Yeni tedarikçi bilgilerini giriniz.</p>
 
         <form th:action="@{${supplierDto.id == null ? '/admin/suppliers' : '/admin/suppliers/update/' + supplierDto.id}}"
               th:object="${supplierDto}"
               method="post">
 
             <div class="grid grid-cols-2 gap-4 mb-4">
-
                 <div>
-
-                    <label class="block text-sm font-medium text-slate-700 mb-1">
-
-                        Firma Adı
-
-                    </label>
-
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Firma Adı</label>
                     <input type="text"
                            th:field="*{companyName}"
                            placeholder="Firma adı"
-
                            class="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm">
-
-                    <p class="text-xs text-red-600 mt-1"
-                       th:errors="*{companyName}"></p>
-
+                    <p class="text-xs text-red-600 mt-1" th:errors="*{companyName}"></p>
                 </div>
 
-
                 <div>
-
-                    <label class="block text-sm font-medium text-slate-700 mb-1">
-
-                        Telefon
-
-                    </label>
-
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Telefon</label>
                     <input type="text"
                            th:field="*{phone}"
                            placeholder="Telefon"
-
                            class="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm">
-
-                    <p class="text-xs text-red-600 mt-1"
-                       th:errors="*{phone}"></p>
-
+                    <p class="text-xs text-red-600 mt-1" th:errors="*{phone}"></p>
                 </div>
-
             </div>
 
-
             <div class="grid grid-cols-[1fr_auto] gap-4 items-end">
-
                 <div>
-
-                    <label class="block text-sm font-medium text-slate-700 mb-1">
-
-                        Adres
-
-                    </label>
-
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Adres</label>
                     <textarea rows="3"
                               th:field="*{address}"
                               placeholder="Adres"
-
                               class="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm"></textarea>
-
-                    <p class="text-xs text-red-600 mt-1"
-                       th:errors="*{address}"></p>
-
+                    <p class="text-xs text-red-600 mt-1" th:errors="*{address}"></p>
                 </div>
 
-
                 <button type="submit"
-
                         class="rounded-xl bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 font-semibold">
-
-<span th:text="${supplierDto.id == null} ? 'Tedarikçi Ekle' : 'Tedarikçi Güncelle'">
-
-Tedarikçi Ekle
-
-</span>
-
+                    <span th:text="${supplierDto.id == null} ? 'Tedarikçi Ekle' : 'Tedarikçi Güncelle'">
+                        Tedarikçi Ekle
+                    </span>
                 </button>
-
             </div>
-
         </form>
-
     </section>
 
-
     <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-
         <div class="px-5 py-4 border-b border-slate-200">
-
-            <h2 class="text-lg font-semibold">
-
-                Tedarikçi Listesi
-
-            </h2>
-
-            <p class="text-sm text-slate-500">
-
-                Sistemde kayıtlı tedarikçiler
-
-            </p>
-
+            <h2 class="text-lg font-semibold">Tedarikçi Listesi</h2>
+            <p class="text-sm text-slate-500">Sistemde kayıtlı tedarikçiler</p>
         </div>
-
 
         <div class="overflow-x-auto">
-
             <table class="w-full text-sm">
-
                 <thead class="bg-gray-50 text-gray-700">
-
                 <tr>
-
                     <th class="px-5 py-3 text-left">Firma Adı</th>
-
                     <th class="px-5 py-3 text-left">İletişim</th>
-
                     <th class="px-5 py-3 text-left">Adres</th>
-
                     <th class="px-5 py-3 text-left">Ürün Sayısı</th>
-
                     <th class="px-5 py-3 text-right">İşlemler</th>
-
                 </tr>
-
                 </thead>
 
-
                 <tbody class="divide-y divide-slate-100">
-
-                <tr th:each="supplier : ${suppliers}"
-                    class="hover:bg-slate-50">
-
-                    <td class="px-5 py-4 font-semibold"
-
-                        th:text="${supplier.companyName}"></td>
-
+                <tr th:each="supplier : ${suppliers}" class="hover:bg-slate-50">
+                    <td class="px-5 py-4 font-semibold" th:text="${supplier.companyName}"></td>
 
                     <td class="px-5 py-4">
-
                         <div class="flex items-center gap-2 text-slate-600">
-
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="w-4 h-4 text-slate-400"
-                                 fill="none"
-                                 viewBox="0 0 24 24"
-                                 stroke="currentColor"
-                                 stroke-width="1.8">
-
-                                <path stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a1.125 1.125 0 0 1-1.21.38 12.035 12.035 0 0 1-7.143-7.143 1.125 1.125 0 0 1 .38-1.21l1.293-.97a1.125 1.125 0 0 0 .417-1.173L6.963 3.102A1.125 1.125 0 0 0 5.872 2.25H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/>
-
-                            </svg>
-
                             <span th:text="${supplier.phone}"></span>
-
                         </div>
-
                     </td>
 
-                    <td class="px-5 py-4"
-
-                        th:text="${supplier.address}"></td>
-
+                    <td class="px-5 py-4" th:text="${supplier.address}"></td>
 
                     <td class="px-5 py-4">
-
-<span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">
-
-0 Ürün
-
-</span>
-
+                        <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">
+                            0 Ürün
+                        </span>
                     </td>
 
-
                     <td class="px-5 py-4">
-
                         <div class="flex justify-end gap-2">
-
                             <a th:href="@{/admin/suppliers/edit/{id}(id=${supplier.id})}"
-
                                class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-blue-50 text-slate-500 hover:text-blue-600">
-
                                 ✏️
-
                             </a>
 
-
                             <form th:action="@{/admin/suppliers/delete/{id}(id=${supplier.id})}"
-
                                   method="post"
-
                                   onsubmit="return confirm('Silmek istediğinize emin misiniz?')">
-
                                 <button type="submit"
-
                                         class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-red-50 text-slate-500 hover:text-red-600">
-
                                     🗑️
-
                                 </button>
-
                             </form>
-
                         </div>
-
                     </td>
-
                 </tr>
-
                 </tbody>
-
             </table>
-
         </div>
-
     </section>
 
 </main>

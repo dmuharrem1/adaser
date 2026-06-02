@@ -29,9 +29,12 @@ public class Product {
 
     private Double salePrice;
 
+    private String imageName;
+
     @ManyToOne
     private Category category;
 
     @ManyToOne
     private Supplier supplier;
+
 }
