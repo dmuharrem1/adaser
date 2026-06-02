@@ -25,7 +25,17 @@
         <h2>Stok Takip Otomasyonu</h2>
         <p>Bu sistem yapı kimyasalları üreten Adaser fabrikasının ürün, kategori, tedarikçi ve stok hareketlerini takip etmek için geliştirilmiştir.</p>
     </div>
+    <div class="card">
+        <h3>Stok Özeti</h3>
 
+        <p>Toplam Ürün Sayısı: <strong th:text="${totalProductCount}"></strong></p>
+
+        <p>Toplam Stok Miktarı: <strong th:text="${totalStockQuantity}"></strong></p>
+
+        <p>Toplam Stok Değeri: <strong th:text="${totalStockValue}"></strong> TL</p>
+
+        <p>Kritik Stoktaki Ürün Sayısı: <strong th:text="${criticalProductCount}"></strong></p>
+    </div>
     <div class="card">
         <h3>Panel İşlemleri</h3>
         <a class="btn" href="/staff/products">Ürünleri Görüntüle</a>

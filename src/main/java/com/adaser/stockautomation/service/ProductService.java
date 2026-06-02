@@ -67,4 +67,21 @@ public class ProductService {
         Product product = getProductById(id);
         productRepository.delete(product);
     }
+    public long getTotalProductCount() {
+        return productRepository.count();
+    }
+
+    public int getTotalStockQuantity() {
+        return productRepository.findAll()
+                .stream()
+                .mapToInt(Product::getQuantity)
+                .sum();
+    }
+
+    public double getTotalStockValue() {
+        return productRepository.findAll()
+                .stream()
+                .mapToDouble(product -> product.getQuantity() * product.getSalePrice())
+                .sum();
+    }
 }
