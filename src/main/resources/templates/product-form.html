@@ -2,74 +2,76 @@
 <html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ürün Ekle</title>
+    <title th:text="${productDto.id == null} ? 'Ürün Ekle' : 'Ürün Güncelle'">Ürün Formu</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>Yeni Ürün Ekle</h2>
 
-<form th:action="@{/staff/products}" th:object="${productDto}" method="post">
+<div class="container">
+    <div class="card">
+        <h2 th:text="${productDto.id == null} ? 'Yeni Ürün Ekle' : 'Ürün Güncelle'">Ürün Formu</h2>
 
-    <label>Ürün Kodu</label>
-    <input type="text" th:field="*{productCode}">
-    <span th:errors="*{productCode}"></span>
-    <br>
+        <form th:action="@{${productDto.id == null ? '/staff/products' : '/staff/products/update/' + productDto.id}}"
+              th:object="${productDto}"
+              method="post">
 
-    <label>Ürün Adı</label>
-    <input type="text" th:field="*{name}">
-    <span th:errors="*{name}"></span>
-    <br>
+            <label>Ürün Kodu</label>
+            <input type="text" th:field="*{productCode}">
+            <span class="error" th:errors="*{productCode}"></span>
 
-    <label>Birim</label>
-    <input type="text" th:field="*{unit}" placeholder="kg, lt, adet">
-    <span th:errors="*{unit}"></span>
-    <br>
+            <label>Ürün Adı</label>
+            <input type="text" th:field="*{name}">
+            <span class="error" th:errors="*{name}"></span>
 
-    <label>Miktar</label>
-    <input type="number" th:field="*{quantity}">
-    <span th:errors="*{quantity}"></span>
-    <br>
+            <label>Birim</label>
+            <input type="text" th:field="*{unit}" placeholder="kg, lt, adet">
+            <span class="error" th:errors="*{unit}"></span>
 
-    <label>Kritik Stok Seviyesi</label>
-    <input type="number" th:field="*{criticalStockLevel}">
-    <span th:errors="*{criticalStockLevel}"></span>
-    <br>
+            <label>Miktar</label>
+            <input type="number" th:field="*{quantity}">
+            <span class="error" th:errors="*{quantity}"></span>
 
-    <label>Alış Fiyatı</label>
-    <input type="number" step="0.01" th:field="*{purchasePrice}">
-    <span th:errors="*{purchasePrice}"></span>
-    <br>
+            <label>Kritik Stok Seviyesi</label>
+            <input type="number" th:field="*{criticalStockLevel}">
+            <span class="error" th:errors="*{criticalStockLevel}"></span>
 
-    <label>Satış Fiyatı</label>
-    <input type="number" step="0.01" th:field="*{salePrice}">
-    <span th:errors="*{salePrice}"></span>
-    <br>
+            <label>Alış Fiyatı</label>
+            <input type="number" step="0.01" th:field="*{purchasePrice}">
+            <span class="error" th:errors="*{purchasePrice}"></span>
 
-    <label>Kategori</label>
-    <select th:field="*{categoryId}">
-        <option value="">Seçiniz</option>
-        <option th:each="category : ${categories}"
-                th:value="${category.id}"
-                th:text="${category.name}">
-        </option>
-    </select>
-    <span th:errors="*{categoryId}"></span>
-    <br>
+            <label>Satış Fiyatı</label>
+            <input type="number" step="0.01" th:field="*{salePrice}">
+            <span class="error" th:errors="*{salePrice}"></span>
 
-    <label>Tedarikçi</label>
-    <select th:field="*{supplierId}">
-        <option value="">Seçiniz</option>
-        <option th:each="supplier : ${suppliers}"
-                th:value="${supplier.id}"
-                th:text="${supplier.companyName}">
-        </option>
-    </select>
-    <span th:errors="*{supplierId}"></span>
-    <br>
+            <label>Kategori</label>
+            <select th:field="*{categoryId}">
+                <option value="">Seçiniz</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}">
+                </option>
+            </select>
+            <span class="error" th:errors="*{categoryId}"></span>
 
-    <button type="submit">Kaydet</button>
-</form>
+            <label>Tedarikçi</label>
+            <select th:field="*{supplierId}">
+                <option value="">Seçiniz</option>
+                <option th:each="supplier : ${suppliers}"
+                        th:value="${supplier.id}"
+                        th:text="${supplier.companyName}">
+                </option>
+            </select>
+            <span class="error" th:errors="*{supplierId}"></span>
 
-<a href="/staff/products">Geri Dön</a>
+            <button class="btn btn-success" type="submit"
+                    th:text="${productDto.id == null} ? 'Kaydet' : 'Güncelle'">
+                Kaydet
+            </button>
+
+            <a class="btn" href="/staff/products">Geri Dön</a>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>

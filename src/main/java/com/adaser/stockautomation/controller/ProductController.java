@@ -65,4 +65,26 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/staff/products";
     }
+    @GetMapping("/edit/{id}")
+    public String showEditProductForm(@PathVariable Long id, Model model) {
+        model.addAttribute("productDto", productService.getProductDtoById(id));
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("suppliers", supplierService.getAllSuppliers());
+        return "product-form";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateProduct(@PathVariable Long id,
+                                @Valid @ModelAttribute ProductDto productDto,
+                                BindingResult bindingResult,
+                                Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.getAllCategories());
+            model.addAttribute("suppliers", supplierService.getAllSuppliers());
+            return "product-form";
+        }
+
+        productService.updateProduct(id, productDto);
+        return "redirect:/staff/products";
+    }
 }

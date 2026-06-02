@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ProductDto {
+    private Long id;
 
     @NotBlank(message = "Product code cannot be empty")
     private String productCode;

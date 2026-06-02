@@ -84,4 +84,42 @@ public class ProductService {
                 .mapToDouble(product -> product.getQuantity() * product.getSalePrice())
                 .sum();
     }
+    public ProductDto getProductDtoById(Long id) {
+        Product product = getProductById(id);
+
+        return ProductDto.builder()
+                .id(product.getId())
+                .productCode(product.getProductCode())
+                .name(product.getName())
+                .unit(product.getUnit())
+                .quantity(product.getQuantity())
+                .criticalStockLevel(product.getCriticalStockLevel())
+                .purchasePrice(product.getPurchasePrice())
+                .salePrice(product.getSalePrice())
+                .categoryId(product.getCategory().getId())
+                .supplierId(product.getSupplier().getId())
+                .build();
+    }
+
+    public Product updateProduct(Long id, ProductDto productDto) {
+        Product product = getProductById(id);
+
+        Category category = categoryRepository.findById(productDto.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+
+        Supplier supplier = supplierRepository.findById(productDto.getSupplierId())
+                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
+
+        product.setProductCode(productDto.getProductCode());
+        product.setName(productDto.getName());
+        product.setUnit(productDto.getUnit());
+        product.setQuantity(productDto.getQuantity());
+        product.setCriticalStockLevel(productDto.getCriticalStockLevel());
+        product.setPurchasePrice(productDto.getPurchasePrice());
+        product.setSalePrice(productDto.getSalePrice());
+        product.setCategory(category);
+        product.setSupplier(supplier);
+
+        return productRepository.save(product);
+    }
 }

@@ -46,6 +46,7 @@
         <td th:text="${product.supplier.companyName}"></td>
         <td>
             <form th:action="@{/staff/products/delete/{id}(id=${product.id})}" method="post">
+                <a class="btn btn-warning" th:href="@{/staff/products/edit/{id}(id=${product.id})}">Güncelle</a>
                 <button type="submit">Sil</button>
             </form>
         </td>
