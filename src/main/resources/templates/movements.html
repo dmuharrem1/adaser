@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Stok Hareketleri</title>
+</head>
+<body>
+<h2>Stok Giriş / Çıkış</h2>
+
+<form th:action="@{/staff/movements}" th:object="${movementDto}" method="post">
+
+    <label>Ürün</label>
+    <select th:field="*{productId}">
+        <option value="">Seçiniz</option>
+        <option th:each="product : ${products}"
+                th:value="${product.id}"
+                th:text="${product.name}">
+        </option>
+    </select>
+    <span th:errors="*{productId}"></span>
+    <br>
+
+    <label>İşlem Türü</label>
+    <select th:field="*{movementType}">
+        <option value="">Seçiniz</option>
+        <option value="IN">Stok Giriş</option>
+        <option value="OUT">Stok Çıkış</option>
+    </select>
+    <span th:errors="*{movementType}"></span>
+    <br>
+
+    <label>Miktar</label>
+    <input type="number" th:field="*{quantity}">
+    <span th:errors="*{quantity}"></span>
+    <br>
+
+    <label>Açıklama</label>
+    <input type="text" th:field="*{description}">
+    <br>
+
+    <button type="submit">Kaydet</button>
+</form>
+
+<hr>
+
+<table border="1">
+    <tr>
+        <th>Ürün</th>
+        <th>İşlem</th>
+        <th>Miktar</th>
+        <th>Tarih</th>
+        <th>Açıklama</th>
+    </tr>
+    <tr th:each="movement : ${movements}">
+        <td th:text="${movement.product.name}"></td>
+        <td th:text="${movement.movementType}"></td>
+        <td th:text="${movement.quantity}"></td>
+        <td th:text="${movement.movementDate}"></td>
+        <td th:text="${movement.description}"></td>
+    </tr>
+</table>
+
+<a href="/">Ana Sayfa</a>
+</body>
+</html>

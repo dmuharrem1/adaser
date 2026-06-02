@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kategoriler</title>
+</head>
+<body>
+<h2>Kategori Yönetimi</h2>
+
+<form th:action="@{/admin/categories}" th:object="${categoryDto}" method="post">
+    <input type="text" th:field="*{name}" placeholder="Kategori adı">
+    <span th:errors="*{name}"></span>
+    <button type="submit">Ekle</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Kategori Adı</th>
+    </tr>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+    </tr>
+</table>
+
+<a href="/">Ana Sayfa</a>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tedarikçiler</title>
+</head>
+<body>
+<h2>Tedarikçi Yönetimi</h2>
+
+<form th:action="@{/admin/suppliers}" th:object="${supplierDto}" method="post">
+    <input type="text" th:field="*{companyName}" placeholder="Firma adı">
+    <span th:errors="*{companyName}"></span>
+    <br>
+
+    <input type="text" th:field="*{phone}" placeholder="Telefon">
+    <span th:errors="*{phone}"></span>
+    <br>
+
+    <input type="text" th:field="*{address}" placeholder="Adres">
+    <span th:errors="*{address}"></span>
+    <br>
+
+    <button type="submit">Ekle</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>Firma</th>
+        <th>Telefon</th>
+        <th>Adres</th>
+    </tr>
+    <tr th:each="supplier : ${suppliers}">
+        <td th:text="${supplier.companyName}"></td>
+        <td th:text="${supplier.phone}"></td>
+        <td th:text="${supplier.address}"></td>
+    </tr>
+</table>
+
+<a href="/">Ana Sayfa</a>
+</body>
+</html>

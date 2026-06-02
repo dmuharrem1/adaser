@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kritik Stoklar</title>
+</head>
+<body>
+<h2>Kritik Stok Seviyesindeki Ürünler</h2>
+
+<table border="1">
+    <tr>
+        <th>Ürün Kodu</th>
+        <th>Ürün Adı</th>
+        <th>Mevcut Stok</th>
+        <th>Kritik Seviye</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.productCode}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.quantity}"></td>
+        <td th:text="${product.criticalStockLevel}"></td>
+    </tr>
+</table>
+
+<a href="/">Ana Sayfa</a>
+</body>
+</html>

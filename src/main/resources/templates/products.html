@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ürünler</title>
+</head>
+<body>
+<h2>Ürün Listesi</h2>
+
+<form action="/staff/products/search" method="get">
+    <input type="text" name="keyword" placeholder="Ürün ara">
+    <button type="submit">Ara</button>
+</form>
+
+<br>
+
+<a href="/staff/products/new">Yeni Ürün Ekle</a>
+<a href="/">Ana Sayfa</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Kod</th>
+        <th>Ürün Adı</th>
+        <th>Birim</th>
+        <th>Miktar</th>
+        <th>Kritik Seviye</th>
+        <th>Alış</th>
+        <th>Satış</th>
+        <th>Kategori</th>
+        <th>Tedarikçi</th>
+        <th>İşlem</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.productCode}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.unit}"></td>
+        <td th:text="${product.quantity}"></td>
+        <td th:text="${product.criticalStockLevel}"></td>
+        <td th:text="${product.purchasePrice}"></td>
+        <td th:text="${product.salePrice}"></td>
+        <td th:text="${product.category.name}"></td>
+        <td th:text="${product.supplier.companyName}"></td>
+        <td>
+            <form th:action="@{/staff/products/delete/{id}(id=${product.id})}" method="post">
+                <button type="submit">Sil</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
