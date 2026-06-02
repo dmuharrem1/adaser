@@ -28,7 +28,7 @@
             Ürün tedarikçilerinin firma, telefon ve adres bilgilerini buradan yönetebilirsiniz.
         </p>
 
-        <form th:action="@{/admin/suppliers}"
+        <form th:action="@{${supplierDto.id == null ? '/admin/suppliers' : '/admin/suppliers/update/' + supplierDto.id}}"
               th:object="${supplierDto}"
               method="post">
 
@@ -72,12 +72,10 @@
                 </div>
 
             </div>
-
             <button class="btn btn-success"
-                    type="submit">
-
+                    type="submit"
+                    th:text="${supplierDto.id == null} ? 'Tedarikçi Ekle' : 'Tedarikçi Güncelle'">
                 Tedarikçi Ekle
-
             </button>
 
         </form>
@@ -117,20 +115,18 @@
                 <td th:text="${supplier.address}"></td>
 
                 <td>
+                    <div class="table-actions">
+                        <a class="btn btn-warning"
+                           th:href="@{/admin/suppliers/edit/{id}(id=${supplier.id})}">
+                            Güncelle
+                        </a>
 
-                    <form th:action="@{/admin/suppliers/delete/{id}(id=${supplier.id})}"
-                          method="post"
-                          onsubmit="return confirm('Bu tedarikçiyi silmek istediğinize emin misiniz?');">
-
-                        <button class="btn btn-danger"
-                                type="submit">
-
-                            Sil
-
-                        </button>
-
-                    </form>
-
+                        <form th:action="@{/admin/suppliers/delete/{id}(id=${supplier.id})}"
+                              method="post"
+                              onsubmit="return confirm('Bu tedarikçiyi silmek istediğinize emin misiniz?');">
+                            <button class="btn btn-danger" type="submit">Sil</button>
+                        </form>
+                    </div>
                 </td>
 
             </tr>

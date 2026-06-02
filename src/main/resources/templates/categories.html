@@ -22,12 +22,19 @@
         <h2 class="page-title">Kategori Yönetimi</h2>
         <p class="page-description">Ürünlerin bağlı olduğu yapı kimyasalı kategorilerini buradan yönetebilirsiniz.</p>
 
-        <form th:action="@{/admin/categories}" th:object="${categoryDto}" method="post">
+        <form th:action="@{${categoryDto.id == null ? '/admin/categories' : '/admin/categories/update/' + categoryDto.id}}"
+              th:object="${categoryDto}"
+              method="post">
             <label>Kategori Adı</label>
             <input type="text" th:field="*{name}" placeholder="Örn: Yapıştırıcılar">
             <span class="error" th:errors="*{name}"></span>
+            <button class="btn btn-success"
+                    type="submit"
+                    th:text="${categoryDto.id == null} ? 'Kategori Ekle' : 'Kategori Güncelle'">
+                Kategori Ekle
+            </button>
 
-            <button class="btn btn-success" type="submit">Kategori Ekle</button>
+
         </form>
     </div>
 
@@ -48,11 +55,19 @@
                 <td th:text="${category.id}"></td>
                 <td th:text="${category.name}"></td>
                 <td>
+
+                    <div class="table-actions">
+                    <a class="btn btn-warning"
+                       th:href="@{/admin/categories/edit/{id}(id=${category.id})}">
+                        Güncelle
+                    </a>
+
                     <form th:action="@{/admin/categories/delete/{id}(id=${category.id})}"
                           method="post"
                           onsubmit="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?');">
                         <button class="btn btn-danger" type="submit">Sil</button>
                     </form>
+                    </div>
                 </td>
             </tr>
             </tbody>
