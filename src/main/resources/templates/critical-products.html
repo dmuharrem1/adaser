@@ -2,27 +2,56 @@
 <html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kritik Stoklar</title>
+    <title>Kritik Stoklar | Adaser Stok Takip</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>Kritik Stok Seviyesindeki Ürünler</h2>
 
-<table border="1">
-    <tr>
-        <th>Ürün Kodu</th>
-        <th>Ürün Adı</th>
-        <th>Mevcut Stok</th>
-        <th>Kritik Seviye</th>
-    </tr>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.productCode}"></td>
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.quantity}"></td>
-        <td th:text="${product.criticalStockLevel}"></td>
-    </tr>
-</table>
+<div class="navbar">
+    <strong>Adaser Stok Takip</strong>
+    <div>
+        <a href="/">Dashboard</a>
+        <a href="/staff/products">Ürünler</a>
+        <a href="/staff/movements">Stok Hareketleri</a>
+        <a href="/logout">Çıkış</a>
+    </div>
+</div>
 
-<a href="/">Ana Sayfa</a>
+<div class="container">
+    <div class="card">
+        <h2 class="page-title">Kritik Stok Raporu</h2>
+        <p class="page-description">
+            Mevcut stok miktarı kritik stok seviyesine eşit veya altında olan ürünler burada listelenir.
+        </p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Ürün Kodu</th>
+                <th>Ürün Adı</th>
+                <th>Mevcut Stok</th>
+                <th>Kritik Seviye</th>
+                <th>Durum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.productCode}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.quantity}"></td>
+                <td th:text="${product.criticalStockLevel}"></td>
+                <td>
+                    <span class="badge badge-critical">Kritik</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${#lists.isEmpty(products)}" class="page-description">
+            Kritik stok seviyesinde ürün bulunmamaktadır.
+        </p>
+    </div>
+</div>
+
 </body>
 </html>
