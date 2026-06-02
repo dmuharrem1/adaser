@@ -125,4 +125,40 @@ public class ProductService {
     public List<Product> getProductsByCategory(String categoryName) {
         return productRepository.findByCategory_Name(categoryName);
     }
+    public List<String> getCategoryChartLabels() {
+        return productRepository.findAll()
+                .stream()
+                .map(product -> product.getCategory().getName())
+                .distinct()
+                .toList();
+    }
+
+    public List<Integer> getCategoryChartValues() {
+        return getCategoryChartLabels()
+                .stream()
+                .map(categoryName -> productRepository.findAll()
+                        .stream()
+                        .filter(product -> product.getCategory().getName().equals(categoryName))
+                        .mapToInt(Product::getQuantity)
+                        .sum())
+                .toList();
+    }
+
+    public List<String> getTopProductLabels() {
+        return productRepository.findAll()
+                .stream()
+                .sorted((a, b) -> Integer.compare(b.getQuantity(), a.getQuantity()))
+                .limit(5)
+                .map(Product::getName)
+                .toList();
+    }
+
+    public List<Integer> getTopProductValues() {
+        return productRepository.findAll()
+                .stream()
+                .sorted((a, b) -> Integer.compare(b.getQuantity(), a.getQuantity()))
+                .limit(5)
+                .map(Product::getQuantity)
+                .toList();
+    }
 }

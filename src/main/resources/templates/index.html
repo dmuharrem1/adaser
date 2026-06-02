@@ -6,81 +6,309 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard | Adaser Stok Takip</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body class="bg-slate-100">
 
-<div class="navbar">
-    <strong>Adaser Stok Takip</strong>
+<nav class="bg-slate-900 border-b border-slate-800 px-8 py-4 flex items-center justify-between shadow-sm">
 
-    <div>
-        <a href="/">Dashboard</a>
-        <a href="/staff/products">Ürünler</a>
-        <a href="/staff/movements">Stok Hareketleri</a>
-        <a href="/staff/products/critical">Kritik Stoklar</a>
+    <a href="/" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-6 h-6"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M21 8.25 12 3 3 8.25m18 0-9 5.25m9-5.25v7.5L12 21m0-7.5L3 8.25m9 5.25V21M3 8.25v7.5L12 21" />
+            </svg>
+        </div>
 
-        <a sec:authorize="hasRole('ADMIN')" href="/admin/categories">Kategoriler</a>
-        <a sec:authorize="hasRole('ADMIN')" href="/admin/suppliers">Tedarikçiler</a>
+        <div class="text-lg tracking-wide">
+            <span class="text-white font-bold">Adaser</span>
+            <span class="text-slate-300 font-light">Stok Takip</span>
+        </div>
+    </a>
 
-        <a href="/logout">Çıkış</a>
+    <div class="flex items-center gap-1 text-sm">
+
+        <a href="/"
+           class="flex items-center gap-2 px-3 py-2 text-white border-b-2 border-blue-400">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 13.125C3 12.504 3.504 12 4.125 12h3.75C8.496 12 9 12.504 9 13.125v6.75C9 20.496 8.496 21 7.875 21h-3.75A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-3.75a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125C16.5 3.504 17.004 3 17.625 3h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+            </svg>
+            Dashboard
+        </a>
+
+        <a href="/staff/products"
+           class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white transition">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M20.25 7.5 12 3 3.75 7.5m16.5 0L12 12m8.25-4.5v9L12 21m0-9L3.75 7.5m8.25 4.5v9m0-9L3.75 16.5" />
+            </svg>
+            Ürünler
+        </a>
+
+        <a href="/staff/movements"
+           class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white transition">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h18M16.5 3 21 7.5m0 0L16.5 12M21 7.5H3" />
+            </svg>
+            Stok Hareketleri
+        </a>
+
+        <a href="/staff/products/critical"
+           class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white transition">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 9v3.75m0 3.75h.008v.008H12V16.5Zm-9.303 2.25 8.25-14.25a1.2 1.2 0 0 1 2.106 0l8.25 14.25A1.2 1.2 0 0 1 20.25 21H3.75a1.2 1.2 0 0 1-1.053-1.75Z" />
+            </svg>
+            Kritik Stoklar
+        </a>
+
+        <a sec:authorize="hasRole('ADMIN')"
+           href="/admin/categories"
+           class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white transition">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.169.659 1.591l9.182 9.182a2.25 2.25 0 0 0 3.182 0l4.318-4.318a2.25 2.25 0 0 0 0-3.182L11.159 3.659A2.25 2.25 0 0 0 9.568 3Z" />
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 6h.008v.008H6V6Z" />
+            </svg>
+            Kategoriler
+        </a>
+
+        <a sec:authorize="hasRole('ADMIN')"
+           href="/admin/suppliers"
+           class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white transition">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.25 18.75a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM18.75 18.75a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM2.25 6.75h11.25v9H2.25v-9ZM13.5 9.75h3.879c.398 0 .779.158 1.061.439l3.31 3.311v2.25H13.5v-6Z" />
+            </svg>
+            Tedarikçiler
+        </a>
+
+        <div class="h-6 w-px bg-slate-700 mx-3"></div>
+
+        <a href="/logout"
+           class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-red-400 transition">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6A2.25 2.25 0 0 0 5.25 5.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H3" />
+            </svg>
+            Çıkış
+        </a>
+
     </div>
+
+</nav>
+
+<div class="max-w-7xl mx-auto p-6">
+
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Dashboard Özeti</h2>
+
+        <a href="/staff/movements"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl shadow">
+            Hızlı Stok Giriş/Çıkış
+        </a>
+    </div>
+
+    <div class="grid grid-cols-4 gap-5 mb-8">
+        <div class="bg-white rounded-2xl shadow p-6">
+            <p class="text-gray-500">Toplam Ürün Sayısı</p>
+            <h1 class="text-4xl font-bold" th:text="${totalProductCount}">0</h1>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6">
+            <p class="text-gray-500">Toplam Stok Miktarı</p>
+            <h1 class="text-4xl font-bold" th:text="${totalStockQuantity}">0</h1>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6">
+            <p class="text-gray-500">Toplam Stok Değeri</p>
+            <h1 class="text-3xl font-bold">
+                <span th:text="${#numbers.formatDecimal(totalStockValue,1,'POINT',2,'COMMA')}">0</span> ₺
+            </h1>
+        </div>
+
+        <div class="bg-red-600 text-white rounded-2xl shadow p-6">
+            <p>Kritik Stok</p>
+            <h1 class="text-4xl font-bold" th:text="${criticalProductCount}">0</h1>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h3 class="font-bold text-lg mb-4">Son Stok Hareketleri</h3>
+
+            <table class="w-full text-sm">
+                <thead>
+                <tr class="border-b text-left">
+                    <th class="py-3">Tarih</th>
+                    <th class="py-3">Ürün</th>
+                    <th class="py-3">İşlem</th>
+                    <th class="py-3">Miktar</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr class="border-b" th:each="movement : ${recentMovements}">
+                    <td class="py-3" th:text="${movement.movementDate}"></td>
+                    <td class="py-3" th:text="${movement.product.name}"></td>
+                    <td class="py-3">
+                        <span th:if="${movement.movementType == 'IN'}"
+                              class="text-green-600 font-bold">
+                            Giriş
+                        </span>
+
+                        <span th:if="${movement.movementType == 'OUT'}"
+                              class="text-red-600 font-bold">
+                            Çıkış
+                        </span>
+                    </td>
+                    <td class="py-3" th:text="${movement.quantity}"></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(recentMovements)}">
+                    <td colspan="4" class="py-4 text-gray-500">
+                        Henüz stok hareketi bulunmamaktadır.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h3 class="font-bold text-lg mb-4">Kritik Seviyedeki Ürünler</h3>
+
+            <table class="w-full text-sm">
+                <thead>
+                <tr class="border-b text-left">
+                    <th class="py-3">Ürün</th>
+                    <th class="py-3">Kalan</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr class="border-b" th:each="product : ${criticalProducts}">
+                    <td class="py-3" th:text="${product.name}"></td>
+                    <td class="py-3 text-red-600 font-bold" th:text="${product.quantity}"></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(criticalProducts)}">
+                    <td colspan="2" class="py-4 text-gray-500">
+                        Kritik stok seviyesinde ürün bulunmamaktadır.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h3 class="font-bold mb-4">Kategori Bazlı Stok Dağılımı</h3>
+            <div class="h-80">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h3 class="font-bold mb-4">En Çok İşlem Gören Ürünler</h3>
+            <div class="h-80">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<div class="container">
+<script th:inline="javascript">
+    const categoryLabels = /*[[${categoryChartLabels}]]*/ [];
+    const categoryValues = /*[[${categoryChartValues}]]*/ [];
 
-    <div class="page-header">
-        <h1>Adaser Yapı Kimyasalları</h1>
+    const productLabels = /*[[${topProductLabels}]]*/ [];
+    const productValues = /*[[${topProductValues}]]*/ [];
 
-        <p sec:authorize="hasRole('ADMIN')">
-            Admin paneline hoş geldiniz. Kategori, tedarikçi, ürün ve stok süreçlerini yönetebilirsiniz.
-        </p>
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+            labels: categoryLabels,
+            datasets: [{
+                data: categoryValues
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
 
-        <p sec:authorize="hasRole('STAFF')">
-            Personel paneline hoş geldiniz. Ürünleri görüntüleyebilir ve stok giriş/çıkış işlemleri yapabilirsiniz.
-        </p>
-    </div>
-
-    <div class="stats-grid">
-        <div class="stat-card">
-            <span>Toplam Ürün</span>
-            <strong th:text="${totalProductCount}">0</strong>
-        </div>
-
-        <div class="stat-card">
-            <span>Toplam Stok</span>
-            <strong th:text="${totalStockQuantity}">0</strong>
-        </div>
-
-        <div class="stat-card">
-            <span>Stok Değeri</span>
-            <strong><span th:text="${totalStockValue}">0</span> TL</strong>
-        </div>
-
-        <div class="stat-card danger-stat">
-            <span>Kritik Stok</span>
-            <strong th:text="${criticalProductCount}">0</strong>
-        </div>
-    </div>
-
-    <div class="dashboard-grid">
-
-        <div class="card">
-            <h3>Personel İşlemleri</h3>
-            <a class="btn" href="/staff/products">Ürünleri Görüntüle</a>
-            <a class="btn btn-success" href="/staff/movements">Stok Giriş / Çıkış</a>
-            <a class="btn btn-warning" href="/staff/products/critical">Kritik Stoklar</a>
-        </div>
-
-        <div class="card" sec:authorize="hasRole('ADMIN')">
-            <h3>Admin İşlemleri</h3>
-            <a class="btn" href="/admin/categories">Kategori Yönetimi</a>
-            <a class="btn" href="/admin/suppliers">Tedarikçi Yönetimi</a>
-        </div>
-
-    </div>
-
-</div>
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: productLabels,
+            datasets: [{
+                label: 'Stok Miktarı',
+                data: productValues
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
 
 </body>
 </html>
