@@ -20,4 +20,8 @@ public class HomeController {
         model.addAttribute("criticalProductCount", productService.getCriticalStockProducts().size());
         return "index";
     }
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giriş | Adaser Stok Takip</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="login-body">
+
+<div class="login-page">
+
+    <div class="login-left">
+        <div class="brand-box">
+            <h1>Adaser</h1>
+            <h2>Yapı Kimyasalları</h2>
+            <p>Stok takip, ürün yönetimi ve depo hareketleri için geliştirilmiş yönetim paneli.</p>
+        </div>
+    </div>
+
+    <div class="login-right">
+        <div class="login-card">
+            <h2>Personel Girişi</h2>
+            <p class="login-subtitle">Hesabınızla sisteme giriş yapın.</p>
+
+            <form th:action="@{/login}" method="post">
+                <label>Kullanıcı Adı</label>
+                <input type="text" name="username" placeholder="Kullanıcı adınızı giriniz" autocomplete="username">
+
+                <label>Şifre</label>
+                <input type="password" name="password" placeholder="Şifrenizi giriniz" autocomplete="current-password">
+
+                <button class="btn btn-success login-btn" type="submit">Giriş Yap</button>
+            </form>
+
+            <p th:if="${param.error}" class="error">Kullanıcı adı veya şifre hatalı.</p>
+            <p th:if="${param.logout}" class="success-message">Başarıyla çıkış yaptınız.</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
