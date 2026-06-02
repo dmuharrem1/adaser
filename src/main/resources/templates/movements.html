@@ -21,7 +21,9 @@
     <div class="card">
         <h2 class="page-title">Stok Giriş / Çıkış</h2>
         <p class="page-description">Ürünlerin depoya giriş ve depodan çıkış hareketlerini buradan kaydedebilirsiniz.</p>
-
+        <div th:if="${stockError}" class="alert-danger">
+            <span th:text="${stockError}"></span>
+        </div>
         <form th:action="@{/staff/movements}" th:object="${movementDto}" method="post">
             <div class="form-grid">
                 <div>

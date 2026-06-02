@@ -8,7 +8,7 @@ import com.adaser.stockautomation.repository.ProductRepository;
 import com.adaser.stockautomation.repository.StockMovementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import com.adaser.stockautomation.exception.InsufficientStockException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class StockMovementService {
 
         if (stockMovementDto.getMovementType().equalsIgnoreCase("OUT")) {
             if (product.getQuantity() < stockMovementDto.getQuantity()) {
-                throw new RuntimeException("Not enough stock");
+                throw new InsufficientStockException("Yetersiz stok. Çıkış miktarı mevcut stok miktarından fazla olamaz.");
             }
 
             product.setQuantity(product.getQuantity() - stockMovementDto.getQuantity());

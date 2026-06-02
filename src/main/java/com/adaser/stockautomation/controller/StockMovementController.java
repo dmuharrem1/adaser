@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.adaser.stockautomation.exception.InsufficientStockException;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,7 +37,15 @@ public class StockMovementController {
             return "movements";
         }
 
-        stockMovementService.createMovement(movementDto);
+        try {
+            stockMovementService.createMovement(movementDto);
+        } catch (InsufficientStockException exception) {
+            model.addAttribute("stockError", exception.getMessage());
+            model.addAttribute("movements", stockMovementService.getAllMovements());
+            model.addAttribute("products", productService.getAllProducts());
+            return "movements";
+        }
+
         return "redirect:/staff/movements";
     }
 }
