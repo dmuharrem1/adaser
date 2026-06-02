@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Adaser Stok Takip</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Adaser Yapı Kimyasalları</h1>
-<h2>Stok Takip Otomasyonu</h2>
 
-<a href="/staff/products">Ürünleri Görüntüle</a><br>
-<a href="/staff/movements">Stok Hareketleri</a><br>
-<a href="/staff/products/critical">Kritik Stoklar</a><br>
-<a href="/admin/categories">Kategoriler</a><br>
-<a href="/admin/suppliers">Tedarikçiler</a><br>
-<a href="/logout">Çıkış Yap</a>
+<div class="navbar">
+    <strong>Adaser Stok Takip</strong>
+    <div>
+        <a href="/staff/products">Ürünler</a>
+        <a href="/staff/movements">Stok Hareketleri</a>
+        <a href="/staff/products/critical">Kritik Stoklar</a>
+        <a href="/admin/categories">Kategoriler</a>
+        <a href="/admin/suppliers">Tedarikçiler</a>
+        <a href="/logout">Çıkış</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Adaser Yapı Kimyasalları</h1>
+        <h2>Stok Takip Otomasyonu</h2>
+        <p>Bu sistem yapı kimyasalları üreten Adaser fabrikasının ürün, kategori, tedarikçi ve stok hareketlerini takip etmek için geliştirilmiştir.</p>
+    </div>
+
+    <div class="card">
+        <h3>Panel İşlemleri</h3>
+        <a class="btn" href="/staff/products">Ürünleri Görüntüle</a>
+        <a class="btn btn-success" href="/staff/movements">Stok Giriş / Çıkış</a>
+        <a class="btn btn-warning" href="/staff/products/critical">Kritik Stoklar</a>
+    </div>
+</div>
+
 </body>
 </html>
