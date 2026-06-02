@@ -35,4 +35,9 @@ public class CategoryController {
         categoryService.createCategory(categoryDto);
         return "redirect:/admin/categories";
     }
+    @PostMapping("/delete/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+        return "redirect:/admin/categories";
+    }
 }

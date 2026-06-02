@@ -33,4 +33,8 @@ public class SupplierService {
         return supplierRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier not found"));
     }
+    public void deleteSupplier(Long id) {
+        Supplier supplier = getSupplierById(id);
+        supplierRepository.delete(supplier);
+    }
 }

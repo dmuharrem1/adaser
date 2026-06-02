@@ -26,6 +26,7 @@
             <label>Kategori Adı</label>
             <input type="text" th:field="*{name}" placeholder="Örn: Yapıştırıcılar">
             <span class="error" th:errors="*{name}"></span>
+
             <button class="btn btn-success" type="submit">Kategori Ekle</button>
         </form>
     </div>
@@ -38,15 +39,25 @@
             <tr>
                 <th>ID</th>
                 <th>Kategori Adı</th>
+                <th>İşlem</th>
             </tr>
             </thead>
+
             <tbody>
             <tr th:each="category : ${categories}">
                 <td th:text="${category.id}"></td>
                 <td th:text="${category.name}"></td>
+                <td>
+                    <form th:action="@{/admin/categories/delete/{id}(id=${category.id})}"
+                          method="post"
+                          onsubmit="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?');">
+                        <button class="btn btn-danger" type="submit">Sil</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
+
     </div>
 </div>
 

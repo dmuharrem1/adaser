@@ -9,6 +9,7 @@
 
 <div class="navbar">
     <strong>Adaser Stok Takip</strong>
+
     <div>
         <a href="/">Dashboard</a>
         <a href="/staff/products">Ürünler</a>
@@ -18,55 +19,128 @@
 </div>
 
 <div class="container">
-    <div class="card">
-        <h2 class="page-title">Tedarikçi Yönetimi</h2>
-        <p class="page-description">Ürün tedarikçilerinin firma, telefon ve adres bilgilerini buradan yönetebilirsiniz.</p>
 
-        <form th:action="@{/admin/suppliers}" th:object="${supplierDto}" method="post">
+    <div class="card">
+
+        <h2 class="page-title">Tedarikçi Yönetimi</h2>
+
+        <p class="page-description">
+            Ürün tedarikçilerinin firma, telefon ve adres bilgilerini buradan yönetebilirsiniz.
+        </p>
+
+        <form th:action="@{/admin/suppliers}"
+              th:object="${supplierDto}"
+              method="post">
+
             <div class="form-grid">
+
                 <div>
                     <label>Firma Adı</label>
-                    <input type="text" th:field="*{companyName}" placeholder="Firma adı">
-                    <span class="error" th:errors="*{companyName}"></span>
+
+                    <input type="text"
+                           th:field="*{companyName}"
+                           placeholder="Firma adı">
+
+                    <span class="error"
+                          th:errors="*{companyName}"></span>
                 </div>
 
                 <div>
+
                     <label>Telefon</label>
-                    <input type="text" th:field="*{phone}" placeholder="Telefon">
-                    <span class="error" th:errors="*{phone}"></span>
+
+                    <input type="text"
+                           th:field="*{phone}"
+                           placeholder="Telefon">
+
+                    <span class="error"
+                          th:errors="*{phone}"></span>
+
                 </div>
 
                 <div>
+
                     <label>Adres</label>
-                    <input type="text" th:field="*{address}" placeholder="Adres">
-                    <span class="error" th:errors="*{address}"></span>
+
+                    <input type="text"
+                           th:field="*{address}"
+                           placeholder="Adres">
+
+                    <span class="error"
+                          th:errors="*{address}"></span>
+
                 </div>
+
             </div>
 
-            <button class="btn btn-success" type="submit">Tedarikçi Ekle</button>
+            <button class="btn btn-success"
+                    type="submit">
+
+                Tedarikçi Ekle
+
+            </button>
+
         </form>
+
     </div>
 
     <div class="card">
+
         <h3>Tedarikçi Listesi</h3>
 
         <table>
+
             <thead>
+
             <tr>
+
                 <th>Firma</th>
+
                 <th>Telefon</th>
+
                 <th>Adres</th>
+
+                <th>İşlem</th>
+
             </tr>
+
             </thead>
+
             <tbody>
+
             <tr th:each="supplier : ${suppliers}">
+
                 <td th:text="${supplier.companyName}"></td>
+
                 <td th:text="${supplier.phone}"></td>
+
                 <td th:text="${supplier.address}"></td>
+
+                <td>
+
+                    <form th:action="@{/admin/suppliers/delete/{id}(id=${supplier.id})}"
+                          method="post"
+                          onsubmit="return confirm('Bu tedarikçiyi silmek istediğinize emin misiniz?');">
+
+                        <button class="btn btn-danger"
+                                type="submit">
+
+                            Sil
+
+                        </button>
+
+                    </form>
+
+                </td>
+
             </tr>
+
             </tbody>
+
         </table>
+
     </div>
+
 </div>
 
 </body>
