@@ -2,56 +2,171 @@
 <html lang="tr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kritik Stoklar | Adaser Stok Takip</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Kritik Stok Raporu | Adaser Stok Takip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-<div class="navbar">
-    <strong>Adaser Stok Takip</strong>
-    <div>
-        <a href="/">Dashboard</a>
-        <a href="/staff/products">Ürünler</a>
-        <a href="/staff/movements">Stok Hareketleri</a>
-        <a href="/logout">Çıkış</a>
+<body class="bg-slate-100 min-h-screen">
+
+<nav class="bg-slate-900 border-b border-slate-800 px-8 py-4 flex items-center justify-between shadow-sm">
+    <a href="/" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M21 8.25 12 3 3 8.25m18 0-9 5.25m9-5.25v7.5L12 21m0-7.5L3 8.25m9 5.25V21M3 8.25v7.5L12 21"/>
+            </svg>
+        </div>
+
+        <div class="text-lg tracking-wide">
+            <span class="text-white font-bold">Adaser</span>
+            <span class="text-slate-300 font-light">Stok Takip</span>
+        </div>
+    </a>
+
+    <div class="flex items-center gap-1 text-sm">
+        <a href="/" class="px-3 py-2 text-slate-400 hover:text-white transition">Dashboard</a>
+        <a href="/staff/products" class="px-3 py-2 text-slate-400 hover:text-white transition">Ürünler</a>
+        <a href="/staff/movements" class="px-3 py-2 text-slate-400 hover:text-white transition">Stok Hareketleri</a>
+        <a href="/staff/products/critical" class="px-3 py-2 text-white border-b-2 border-blue-400">Kritik Stoklar</a>
+        <a href="/logout" class="ml-4 border-l border-slate-700 pl-4 text-slate-400 hover:text-red-400 transition">Çıkış</a>
     </div>
-</div>
+</nav>
 
-<div class="container">
-    <div class="card">
-        <h2 class="page-title">Kritik Stok Raporu</h2>
-        <p class="page-description">
-            Mevcut stok miktarı kritik stok seviyesine eşit veya altında olan ürünler burada listelenir.
-        </p>
+<main class="max-w-7xl mx-auto px-6 py-8">
 
-        <table>
-            <thead>
-            <tr>
-                <th>Ürün Kodu</th>
-                <th>Ürün Adı</th>
-                <th>Mevcut Stok</th>
-                <th>Kritik Seviye</th>
-                <th>Durum</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.productCode}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.quantity}"></td>
-                <td th:text="${product.criticalStockLevel}"></td>
-                <td>
-                    <span class="badge badge-critical">Kritik</span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="flex items-center justify-between mb-5">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900">Kritik Stok Raporu</h1>
+            <p class="text-slate-500 mt-1">
+                Minimum stok seviyesinin altına düşen ürünleri hızlıca takip edin.
+            </p>
+        </div>
 
-        <p th:if="${#lists.isEmpty(products)}" class="page-description">
-            Kritik stok seviyesinde ürün bulunmamaktadır.
+        <button type="button"
+                onclick="window.print()"
+                class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M7.5 12 12 16.5m0 0 4.5-4.5M12 16.5V3"/>
+            </svg>
+            Raporu İndir (PDF/Excel)
+        </button>
+    </div>
+
+    <div class="mb-5 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-red-800 flex items-start gap-3">
+        <div class="mt-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="2">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 9v3.75m0 3.75h.008v.008H12V16.5Zm-9.303 2.25 8.25-14.25a1.2 1.2 0 0 1 2.106 0l8.25 14.25A1.2 1.2 0 0 1 20.25 21H3.75a1.2 1.2 0 0 1-1.053-1.75Z"/>
+            </svg>
+        </div>
+
+        <p class="text-sm font-medium">
+            Dikkat:
+            <span class="font-bold" th:text="${#lists.size(products)}">0</span>
+            adet ürün kritik stok seviyesinin altındadır. Lütfen tedarikçilerle iletişime geçin.
         </p>
     </div>
-</div>
+
+    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+
+        <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
+            <div>
+                <h2 class="text-lg font-semibold text-slate-900">Kritik Ürün Listesi</h2>
+                <p class="text-sm text-slate-500">Tedarik ve stok artırımı gerektiren ürünler.</p>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 text-gray-700">
+                <tr>
+                    <th class="px-5 py-3 text-left font-semibold">Ürün Kodu</th>
+                    <th class="px-5 py-3 text-left font-semibold">Ürün Adı</th>
+                    <th class="px-5 py-3 text-left font-semibold">Kategori</th>
+                    <th class="px-5 py-3 text-left font-semibold">Tedarikçi</th>
+                    <th class="px-5 py-3 text-left font-semibold">Mevcut Stok</th>
+                    <th class="px-5 py-3 text-left font-semibold">Kritik Seviye</th>
+                    <th class="px-5 py-3 text-left font-semibold">Durum</th>
+                    <th class="px-5 py-3 text-right font-semibold">Aksiyon</th>
+                </tr>
+                </thead>
+
+                <tbody class="divide-y divide-slate-100">
+                <tr th:each="product : ${products}" class="hover:bg-slate-50 transition">
+
+                    <td class="px-5 py-4 font-medium text-slate-700" th:text="${product.productCode}"></td>
+
+                    <td class="px-5 py-4 font-semibold text-slate-900" th:text="${product.name}"></td>
+
+                    <td class="px-5 py-4 text-slate-600" th:text="${product.category.name}"></td>
+
+                    <td class="px-5 py-4 text-slate-600" th:text="${product.supplier.companyName}"></td>
+
+                    <td class="px-5 py-4 text-red-600 font-bold" th:text="${product.quantity}"></td>
+
+                    <td class="px-5 py-4 text-slate-700" th:text="${product.criticalStockLevel}"></td>
+
+                    <td class="px-5 py-4">
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-red-100 px-2.5 py-1 text-xs font-bold text-red-700">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="w-3.5 h-3.5"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor"
+                                 stroke-width="2">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="M12 9v3.75m0 3.75h.008v.008H12V16.5Zm-9.303 2.25 8.25-14.25a1.2 1.2 0 0 1 2.106 0l8.25 14.25A1.2 1.2 0 0 1 20.25 21H3.75a1.2 1.2 0 0 1-1.053-1.75Z"/>
+                            </svg>
+                            Kritik
+                        </span>
+                    </td>
+
+                    <td class="px-5 py-4 text-right">
+                        <a href="/staff/movements"
+                           class="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="w-4 h-4"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor"
+                                 stroke-width="2">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="M12 4.5v15m7.5-7.5h-15"/>
+                            </svg>
+                            Hızlı Stok Ekle
+                        </a>
+                    </td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(products)}">
+                    <td colspan="8" class="px-5 py-8 text-center text-slate-500">
+                        Kritik stok seviyesinde ürün bulunmamaktadır.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</main>
 
 </body>
 </html>
