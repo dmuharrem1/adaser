@@ -87,4 +87,21 @@ public class ProductController {
         productService.updateProduct(id, productDto);
         return "redirect:/staff/products";
     }
+    @GetMapping("/filter")
+    public String filterProducts(@RequestParam String category,
+                                 Model model) {
+
+        model.addAttribute(
+                "products",
+                productService.getProductsByCategory(category)
+        );
+
+
+        model.addAttribute(
+                "categories",
+                categoryService.getAllCategories()
+        );
+
+        return "products";
+    }
 }

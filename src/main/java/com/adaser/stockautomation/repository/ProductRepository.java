@@ -14,5 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByQuantityLessThanEqual(Integer quantity);
 
-    List<Product> findByCategoryName(String categoryName);
+    List<Product> findByCategory_Name(String categoryName);
 }

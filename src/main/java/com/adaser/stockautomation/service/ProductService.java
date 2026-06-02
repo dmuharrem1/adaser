@@ -122,4 +122,7 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+    public List<Product> getProductsByCategory(String categoryName) {
+        return productRepository.findByCategory_Name(categoryName);
+    }
 }

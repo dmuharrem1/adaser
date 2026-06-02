@@ -15,6 +15,31 @@
         <a href="/staff/products/critical">Kritik Stoklar</a>
         <a href="/logout">Çıkış</a>
     </div>
+    <form class="search-bar"
+          action="/staff/products/filter"
+          method="get">
+
+        <select name="category">
+
+            <option value="">
+                Kategori Seçiniz
+            </option>
+
+            <option th:each="category : ${categories}"
+                    th:value="${category.name}"
+                    th:text="${category.name}">
+            </option>
+
+        </select>
+
+        <button class="btn"
+                type="submit">
+
+            Filtrele
+
+        </button>
+
+    </form>
 </div>
 
 <div class="container">
